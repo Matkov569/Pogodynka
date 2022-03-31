@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentElderBinding
 
 class Elder : Fragment() {
@@ -28,6 +29,16 @@ class Elder : Fragment() {
 
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.viewBtn.setOnClickListener {
+            findNavController().navigate(R.id.elder_to_young)
+            //zapisz że domyślny jest dla młodych
+
+        }
     }
 
     override fun onDestroyView() {

@@ -8,16 +8,11 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentYoungBinding
-import org.json.JSONObject
 import java.net.URL
 import java.util.concurrent.Executors
-import javax.net.ssl.HttpsURLConnection
 
 class Young : Fragment() {
 
@@ -36,39 +31,6 @@ class Young : Fragment() {
 
         val root: View = binding.root
 
-        var json = "";
-        try{
-            json = URL("https://api.openweathermap.org/data/2.5/weather?q=Rybnik&lang=pl&units=metric&appid=7aa105dca7b6e8ea0769b49d8c87b2aa")
-                .readText()
-
-            println("IUIUIUIU")
-        }
-        catch (e: Exception){
-            println("NIE PYKło xd")
-        }
-
-        //print(apiResponse.toString())
-
-        //ikonka
-        val icon = binding.weatherIcon;
-        val executor = Executors.newSingleThreadExecutor()
-        val handler = Handler(Looper.getMainLooper())
-
-        var image: Bitmap? = null
-
-        executor.execute {
-            val imageURL = "https://openweathermap.org/img/wn/03d@4x.png"
-            try {
-                val `in` = URL(imageURL).openStream()
-                image = BitmapFactory.decodeStream(`in`)
-                handler.post {
-                    icon.setImageBitmap(image)
-                }
-            }
-            catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
         return root
     }
 
@@ -84,10 +46,13 @@ class Young : Fragment() {
         binding.background.setImageResource(themes[tryb])
 
         binding.goBtn.setOnClickListener {
-            Toast.makeText(context,"AAA",Toast.LENGTH_LONG).show()
             tryb = (tryb+1)%4;
             binding.background.setImageResource(themes[tryb])
-            //findNavController().navigate(R.id.action_navigation_home_to_navigation_dashboard)
+        }
+
+        binding.viewBtn.setOnClickListener {
+            findNavController().navigate(R.id.young_to_elder)
+            //zapisz że domyślny jest dla starych
         }
     }
 

@@ -21,8 +21,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,8 +51,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
 
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/alata"
@@ -65,7 +67,7 @@
 
             <TextView
                 android:id="@+id/weatherPlace"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -91,74 +93,183 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tempGroup"
                 app:layout_constraintEnd_toEndOf="@+id/weatherPlace"
                 app:layout_constraintStart_toStartOf="@+id/weatherPlace"
                 app:layout_constraintTop_toBottomOf="@+id/weatherPlace" />
 
-            <TextView
-                android:id="@+id/weatherTemperature"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tempGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/pressGroup"
+                app:layout_constraintEnd_toEndOf="@id/weatherTime"
+                app:layout_constraintStart_toStartOf="@id/weatherTime"
+                app:layout_constraintTop_toBottomOf="@+id/weatherTime">
+
+                <TextView
+                    android:id="@+id/weatherTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alata"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/alata"
+                    android:text="°C"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/weatherTemperature"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/pressGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/upGroup"
+                app:layout_constraintEnd_toEndOf="@+id/tempGroup"
+                app:layout_constraintStart_toStartOf="@+id/tempGroup"
+                app:layout_constraintTop_toBottomOf="@+id/tempGroup">
+
+                <TextView
+                    android:id="@+id/weatherPressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/alata"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alata"
+                    android:text="hPa"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/upGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/downGroup"
+                app:layout_constraintEnd_toEndOf="@+id/pressGroup"
+                app:layout_constraintStart_toStartOf="@+id/pressGroup"
+                app:layout_constraintTop_toBottomOf="@id/pressGroup">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="4dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    android:scaleType="center"
+                    android:src="@drawable/weather_sunset_up"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/weatherSunrise"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/weather_sunset_up" />
+
+                <TextView
+                    android:id="@+id/weatherSunrise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alata"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/downGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/viewBtn"
+                app:layout_constraintEnd_toEndOf="@+id/upGroup"
+                app:layout_constraintStart_toStartOf="@+id/upGroup"
+                app:layout_constraintTop_toBottomOf="@+id/upGroup">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="4dp"
+                    android:scaleType="center"
+                    android:src="@drawable/weather_sunset_down"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/weatherSunset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/weather_sunset_down" />
+
+                <TextView
+                    android:id="@+id/weatherSunset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alata"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/viewBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/alata"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textColor="@color/white"
+                android:text="Zmień widok"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/weatherPressure"
-                app:layout_constraintTop_toBottomOf="@+id/weatherTime"
-                app:layout_constraintEnd_toEndOf="@+id/weatherTime"
-                app:layout_constraintStart_toStartOf="@+id/weatherTime"
-                tools:layout_editor_absoluteX="200dp" />
-
-            <TextView
-                android:id="@+id/weatherPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="TextView"
-                android:fontFamily="@font/alata"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/weatherSunrise"
-                app:layout_constraintEnd_toEndOf="@+id/weatherTemperature"
-                app:layout_constraintStart_toStartOf="@+id/weatherTemperature"
-                app:layout_constraintTop_toBottomOf="@+id/weatherTemperature" />
-
-            <TextView
-                android:id="@+id/weatherSunrise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="TextView"
-                android:fontFamily="@font/alata"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/weatherSunset"
-                app:layout_constraintEnd_toEndOf="@+id/weatherPressure"
-                app:layout_constraintStart_toStartOf="@+id/weatherPressure"
-                app:layout_constraintTop_toBottomOf="@+id/weatherPressure" />
-
-            <TextView
-                android:id="@+id/weatherSunset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/alata"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="16sp"
+                app:iconTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/weatherSunrise"
-                app:layout_constraintStart_toStartOf="@+id/weatherSunrise"
-                app:layout_constraintTop_toBottomOf="@+id/weatherSunrise" />
+                app:layout_constraintEnd_toEndOf="@+id/downGroup"
+                app:layout_constraintStart_toStartOf="@+id/downGroup"
+                app:layout_constraintTop_toBottomOf="@+id/downGroup"
+                app:rippleColor="#FFFFFF"
+                app:strokeColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/goBtn"
@@ -172,7 +283,7 @@
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/choosePlaceBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"

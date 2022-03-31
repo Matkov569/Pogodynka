@@ -3,24 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/splash">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/young"
         android:name="com.example.myapplication.Young"
         tools:layout="@layout/fragment_young">
         <action
-            android:id="@+id/action_navigation_home_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/young_to_elder"
+            app:destination="@id/elder" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/elder"
         android:name="com.example.myapplication.Elder"
         tools:layout="@layout/fragment_elder">
         <action
-            android:id="@+id/action_navigation_dashboard_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            android:id="@+id/elder_to_young"
+            app:destination="@id/young" />
+    </fragment>
+    <fragment
+        android:id="@+id/splash"
+        android:name="com.example.myapplication.splash"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splash_to_elder"
+            app:destination="@id/elder" />
+        <action
+            android:id="@+id/action_splash_to_young"
+            app:destination="@id/young" />
     </fragment>
 
 </navigation>
