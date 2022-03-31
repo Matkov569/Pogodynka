@@ -12,6 +12,9 @@
         <action
             android:id="@+id/young_to_elder"
             app:destination="@id/elder" />
+        <action
+            android:id="@+id/refreshY"
+            app:destination="@id/splash" />
     </fragment>
 
     <fragment
@@ -21,6 +24,9 @@
         <action
             android:id="@+id/elder_to_young"
             app:destination="@id/young" />
+        <action
+            android:id="@+id/refreshE"
+            app:destination="@id/splash" />
     </fragment>
     <fragment
         android:id="@+id/splash"

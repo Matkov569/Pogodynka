@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 
 class ViewModel:ViewModel() {
 
-    var Icon:Bitmap? = null;
+   // var Icon:Bitmap? = null;
+    var Icon:String = "";
     var Type:String = "";
     var Temperature:String = "";
     var Pressure:String = "";
@@ -14,7 +15,8 @@ class ViewModel:ViewModel() {
     var City:String = "";
 
     public fun setData(
-        icon:Bitmap?,
+        //icon:Bitmap?,
+        icon:String,
         type:String,
         temperature:String,
         pressure:String,

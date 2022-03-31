@@ -19,11 +19,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.FileNotFoundException
 import java.net.URL
+import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executors
@@ -49,11 +52,7 @@ class splash : Fragment() {
         //var editor = preferences.edit();
         //editor.remove("youngOrElderPlace");
         //editor.apply()
-        println("PLACE");
-        println("PLACE");
-        println(youngOrElderPlace)
-        println("PLACE");
-        println("PLACE");
+
 
         if(youngOrElderPlace==""){
             var builder = AlertDialog.Builder(context);
@@ -64,6 +63,7 @@ class splash : Fragment() {
             builder.setView(input);
             builder.setPositiveButton("Ok"){ dialog, which ->
                 youngOrElderPlace=input.text.toString();
+                youngOrElderPlace= youngOrElderPlace!![0].uppercaseChar()+ youngOrElderPlace!!.substring(1);
                 var editor = preferences.edit();
                 editor.putString("youngOrElderPlace",youngOrElderPlace);
                 editor.apply();
@@ -99,46 +99,56 @@ class splash : Fragment() {
         StrictMode.setThreadPolicy(policy)
         val apiID:String = secrets().apiID;
         try {
-            json = URL("https://api.openweathermap.org/data/2.5/weather?q=$city&lang=pl&units=metric&appid=$apiID").readText()
+            runBlocking {
 
-            val viewModel by activityViewModels<ViewModel>();
+                json = URL("https://api.openweathermap.org/data/2.5/weather?q=$city&lang=pl&units=metric&appid=$apiID").readText()
 
-            var obj = JSONObject(json)
+                val viewModel by activityViewModels<ViewModel>();
 
-            var weather = obj.getJSONArray("weather").getJSONObject(0);
-            var main = obj.getJSONObject("main");
-            var sys = obj.getJSONObject("sys");
+                var obj = JSONObject(json)
 
-            var icon = weather["icon"];
-            var type = weather["description"].toString()[0].uppercaseChar() + weather["description"].toString().substring(1)
-                .lowercase(Locale.getDefault());
-            var temperature = main["temp"].toString();
-            var pressure = main["pressure"].toString();
-            var sunrise = SimpleDateFormat("hh:mm").format(Date(sys["sunrise"].toString().toLong()));
-            var sunset = SimpleDateFormat("hh:mm").format(Date(sys["sunset"].toString().toLong()));
+                var weather = obj.getJSONArray("weather").getJSONObject(0);
+                var main = obj.getJSONObject("main");
+                var sys = obj.getJSONObject("sys");
 
-            val executor = Executors.newSingleThreadExecutor()
-            var image: Bitmap? = null
+                var icon = weather["icon"].toString();
+                var type = weather["description"].toString()[0].uppercaseChar() + weather["description"].toString().substring(1).lowercase(Locale.getDefault())
+                    .lowercase(Locale.getDefault());
+                var temperature = main["temp"].toString();
+                var pressure = main["pressure"].toString();
 
-            executor.execute {
-                val imageURL = "https://openweathermap.org/img/wn/$icon@4x.png"
-                try {
-                    val `in` = URL(imageURL).openStream()
-                    image = BitmapFactory.decodeStream(`in`)
+                var SDF = SimpleDateFormat("HH:mm")
+                SDF.timeZone= TimeZone.getDefault()
+
+                var sunrise = SDF.format(Date(sys["sunrise"].toString().toLong()* 1000));
+                var sunset = SDF.format(Date(sys["sunset"].toString().toLong()* 1000));
+
+/*
+                val executor = Executors.newSingleThreadExecutor()
+                var image: Bitmap? = null
+
+                executor.execute {
+                    val imageURL = "https://openweathermap.org/img/wn/$icon@4x.png"
+                    println(imageURL);
+                    try {
+                        val `in` = URL(imageURL).openStream()
+                        image = BitmapFactory.decodeStream(`in`)
+                        println("IMAGE IS GOOD")
+                    }
+                    catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
-                catch (e: Exception) {
-                    e.printStackTrace()
+*/
+                viewModel.setData(icon,type,temperature,pressure,sunrise, sunset, city+", "+sys["country"].toString())
+
+                launch {
+                    if(youngOrElder)
+                        findNavController().navigate(R.id.action_splash_to_young);
+                    else
+                        findNavController().navigate(R.id.action_splash_to_elder);
                 }
             }
-
-            viewModel.setData(image,type,temperature,pressure,sunrise, sunset, city)
-
-            if(youngOrElder)
-                findNavController().navigate(R.id.action_splash_to_young);
-            else
-                findNavController().navigate(R.id.action_splash_to_elder);
-
-
         }
         catch (e: FileNotFoundException){
             var builder = AlertDialog.Builder(context);
@@ -153,6 +163,7 @@ class splash : Fragment() {
                 builder.setView(input);
                 builder.setPositiveButton("Ok"){ dialog, which ->
                     var youngOrElderPlace=input.text.toString();
+                    youngOrElderPlace=youngOrElderPlace[0].uppercaseChar()+youngOrElderPlace.substring(1).lowercase(Locale.getDefault());
                     var preferences = context?.getSharedPreferences("userdetails",MODE_PRIVATE);
                     var editor = preferences?.edit();
                     editor?.putString("youngOrElderPlace",youngOrElderPlace);

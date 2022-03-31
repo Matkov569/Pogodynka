@@ -255,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/viewBtn"
+                app:layout_constraintBottom_toTopOf="@id/goBtn"
                 app:layout_constraintEnd_toEndOf="@+id/upGroup"
                 app:layout_constraintStart_toStartOf="@+id/upGroup"
                 app:layout_constraintTop_toBottomOf="@+id/upGroup">
@@ -283,7 +283,27 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/goBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/alata"
+                android:text="Zmień tło"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:iconTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@id/viewBtn"
+                app:layout_constraintEnd_toEndOf="@+id/downGroup"
+                app:layout_constraintStart_toStartOf="@+id/downGroup"
+                app:layout_constraintTop_toBottomOf="@+id/downGroup"
+                app:rippleColor="#FFFFFF"
+                app:strokeColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/viewBtn"
@@ -298,9 +318,9 @@
                 android:textSize="24sp"
                 app:iconTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/downGroup"
-                app:layout_constraintStart_toStartOf="@+id/downGroup"
-                app:layout_constraintTop_toBottomOf="@+id/downGroup"
+                app:layout_constraintEnd_toEndOf="@+id/goBtn"
+                app:layout_constraintStart_toStartOf="@+id/goBtn"
+                app:layout_constraintTop_toBottomOf="@+id/goBtn"
                 app:rippleColor="#FFFFFF"
                 app:strokeColor="#FFFFFF" />
 
