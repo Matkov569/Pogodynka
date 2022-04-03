@@ -81,14 +81,22 @@ class Elder : Fragment() {
             //zapisz że domyślny jest dla młodych
 
         }
+        var preferences = context?.getSharedPreferences("userdetails", Context.MODE_PRIVATE);
 
         val themes = listOf<Int>(R.drawable.back_night,R.drawable.back_sunrise,R.drawable.back_day,R.drawable.back_sunset)
-        var tryb = 0;
+
+        var tryb = preferences!!.getInt("elderTheme",0);
 
         binding.background.setImageResource(themes[tryb])
 
+
         binding.goBtn.setOnClickListener {
             tryb = (tryb+1)%4;
+
+            var editor = preferences?.edit();
+            editor?.putInt("elderTheme",tryb);
+            editor?.apply();
+
             binding.background.setImageResource(themes[tryb])
         }
 
@@ -103,7 +111,6 @@ class Elder : Fragment() {
                 var youngOrElderPlace=input.text.toString();
                 youngOrElderPlace=youngOrElderPlace[0].uppercaseChar()+ youngOrElderPlace.substring(1)
                     .lowercase(Locale.getDefault());
-                var preferences = context?.getSharedPreferences("userdetails", Context.MODE_PRIVATE);
                 var editor = preferences?.edit();
                 editor?.putString("youngOrElderPlace",youngOrElderPlace);
                 editor?.apply();

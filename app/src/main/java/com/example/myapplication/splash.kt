@@ -123,23 +123,6 @@ class splash : Fragment() {
                 var sunrise = SDF.format(Date(sys["sunrise"].toString().toLong()* 1000));
                 var sunset = SDF.format(Date(sys["sunset"].toString().toLong()* 1000));
 
-/*
-                val executor = Executors.newSingleThreadExecutor()
-                var image: Bitmap? = null
-
-                executor.execute {
-                    val imageURL = "https://openweathermap.org/img/wn/$icon@4x.png"
-                    println(imageURL);
-                    try {
-                        val `in` = URL(imageURL).openStream()
-                        image = BitmapFactory.decodeStream(`in`)
-                        println("IMAGE IS GOOD")
-                    }
-                    catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-*/
                 viewModel.setData(icon,type,temperature,pressure,sunrise, sunset, city+", "+sys["country"].toString())
 
                 launch {
